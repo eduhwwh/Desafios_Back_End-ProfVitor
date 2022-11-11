@@ -1,25 +1,15 @@
 
-  fetch('http://jsonplaceholder.typicode.com/users')
-  .then((T) => {
+fetch('http://jsonplaceholder.typicode.com/users')
+.then((T) => T.json())
+.then((pessoa)=>{
+  return pessoa.map(function(itens){
 
-        T.json()
-        .then(function(listaDePessoas){
+      const li = document.createElement('li')
+      li.innerHTML = `NOME: ${itens.name} Email: ${itens.email}`
+      document.getElementById('exec6').appendChild(li)
 
-            listaDePessoas.forEach(function(pessoa){
-                console.log(pessoa.name, pessoa.email)
-                const li = document.createElement('li')
-                li.innerHTML = `NOME: ${listaDePessoas.name}`
-              document.getElementById('exec6').appendChild('li')
-            })
-
+    })
         
-            // const li = document.createElement('li')
-            // li.innerHTML = `NOME: ${listaDePessoas.name}`
-            // document.getElementById('exec6').appendChild('li')
-
-        }) 
-    }
-  
-  )
+})
 
 
