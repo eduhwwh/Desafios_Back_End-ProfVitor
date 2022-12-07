@@ -2,6 +2,8 @@ const ul = document.querySelector('ul')
 const input = document.querySelector('input')
 const form = document.querySelector('form')
 
+fetch('http://localhost:3000/').then(data => data.json()).then(data => console.log(data.urls))
+/* 
 // Função que carrega o conteúdo da API.
 async function load() {
     // fetch está como await para evitar que entre num esquema de promisse e só devolva o conteúdo após a iteração qua acontece em seguida.
@@ -10,15 +12,28 @@ async function load() {
     // Iterando no vetor com o conteúdo (JSON) que está vindo da API e adicionando-os no frontend.
     res.urls.map(({name, url}) => addElement({name, url}))
 }
-
 load()
+ */
+function addElement({ name, url }) {
+    const li = document.createElement('li')
+    const a = document.createElement("a")
+    const trash = document.createElement("span")
 
-function addElement(???) {
-    ???
+    a.href = url
+    a.innerHTML = name
+    a.target = "_blank"
+
+    trash.innerHTML = "x"
+    trash.onclick = () => removeElement(trash)
+
+    li.append(a)
+    li.append(trash)
+    ul.append(li)
 }
 
-function removeElement(element) {
-    ???
+function removeElement(el) {
+    if (confirm('Tem certeza que deseja deletar?'))
+        el.parentNode.remove()
 }
 
 form.addEventListener('submit', (event) => {
@@ -41,3 +56,4 @@ form.addEventListener('submit', (event) => {
 
     input.value = ''
 })
+
