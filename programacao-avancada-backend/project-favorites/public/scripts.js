@@ -2,18 +2,14 @@ const ul = document.querySelector('ul')
 const input = document.querySelector('input')
 const form = document.querySelector('form')
 
-fetch('http://localhost:3000/').then(data => data.json()).then(data => console.log(data.urls))
-/* 
-// Função que carrega o conteúdo da API.
-async function load() {
-    // fetch está como await para evitar que entre num esquema de promisse e só devolva o conteúdo após a iteração qua acontece em seguida.
-    const res = await fetch('http://localhost:3000/')
-        .then(data => data.json())
-    // Iterando no vetor com o conteúdo (JSON) que está vindo da API e adicionando-os no frontend.
-    res.urls.map(({name, url}) => addElement({name, url}))
+
+
+async function load(){
+    const res = await fetch('http://localhost:3000/').then(data => data.json())
+    res.urls.map(({name,url}) => addElement({name,url}))
 }
-load()
- */
+load();
+
 function addElement({ name, url }) {
     const li = document.createElement('li')
     const a = document.createElement("a")
@@ -32,8 +28,12 @@ function addElement({ name, url }) {
 }
 
 function removeElement(el) {
-    if (confirm('Tem certeza que deseja deletar?'))
-        el.parentNode.remove()
+   
+    console.log(el.parentNode.children[0].getAttribute("href"))
+    // if (confirm('Tem certeza que deseja deletar?')){
+    //     el.parentNode.remove()
+    //     fetch(`http://localhost:3000?name=${name}&url=${url}&del=delete`)
+    // }
 }
 
 form.addEventListener('submit', (event) => {
@@ -52,8 +52,11 @@ form.addEventListener('submit', (event) => {
     if (!/^http/.test(url))
         return alert('Digite a url da maneira correta.')
 
-    addElement({ name, url })
+    // addElement({ name, url })
 
+    fetch(`http://localhost:3000?name=${name}&url=${url}`)
+    ul.innerHTML=''
+    load();
     input.value = ''
 })
 
