@@ -29,11 +29,12 @@ function addElement({ name, url }) {
 
 function removeElement(el) {
    
-    console.log(el.parentNode.children[0].getAttribute("href"))
-    // if (confirm('Tem certeza que deseja deletar?')){
-    //     el.parentNode.remove()
-    //     fetch(`http://localhost:3000?name=${name}&url=${url}&del=delete`)
-    // }
+    const linkElement = el.parentNode.children[0]
+    const name = linkElement.innerText, url = linkElement.getAttribute('href')
+    if (confirm('Tem certeza que deseja deletar?')){
+        el.parentNode.remove()
+        fetch(`http://localhost:3000?name=${name}&url=${url}&del=delete`)
+    }
 }
 
 form.addEventListener('submit', (event) => {
